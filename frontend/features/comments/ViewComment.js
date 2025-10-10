@@ -17,15 +17,21 @@ export const ViewComment = ({ comment, setIsEdit, setComments }) => {
     setIsEdit(true);
   }
 
+  let image;
+  if (comment.image) {
+    image = <img src={comment.image} height={250} />;
+  } else {
+    image = <span></span>;
+  }
+
   return (
     <div>
       <div>
         {comment.author} on {date.toLocaleDateString()} at{" "}
         {date.toLocaleTimeString()}:
       </div>
-
+      <div>{image}</div>
       <div style={{ whiteSpace: "pre-line" }}>{comment.text}</div>
-
       <div>
         &#x2665;{comment.likes}{" "}
         <a href="#" onClick={handleEdit}>
