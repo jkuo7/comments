@@ -19,7 +19,7 @@ export const ViewComment = ({ comment, setIsEdit, setComments }) => {
 
   let image;
   if (comment.image) {
-    image = <img src={comment.image} height={250} />;
+    image = <img src={comment.image} style={{ maxHeight: 150 }} />;
   } else {
     image = <span></span>;
   }

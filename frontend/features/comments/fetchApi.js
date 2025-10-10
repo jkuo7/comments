@@ -18,7 +18,7 @@ export async function addComment(text) {
 
 export async function editComment(id, text) {
   const response = await fetch(`${COMMENTS_URL}${id}/`, {
-    method: "PUT",
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },

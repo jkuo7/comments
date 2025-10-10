@@ -15,18 +15,17 @@ export const EditCommentForm = ({ comment, setIsEdit }) => {
     }
   }
 
+  function handleCancel(e) {
+    e.preventDefault();
+    setIsEdit(false);
+  }
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <CommentForm text={text} setText={setText} />
         <button type="submit">Edit</button>{" "}
-        <a
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            setIsEdit(false);
-          }}
-        >
+        <a href="#" onClick={handleCancel}>
           Cancel
         </a>
       </form>
