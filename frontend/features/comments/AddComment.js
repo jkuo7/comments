@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { CommentForm } from "./CommentForm";
 import { addComment } from "./fetchApi";
 
-export const AddCommentForm = ({ setComments }) => {
+export const AddCommentForm = ({ setIsStale }) => {
   const [text, setText] = useState("");
 
   async function handleSubmit(e) {
@@ -10,8 +10,7 @@ export const AddCommentForm = ({ setComments }) => {
     const response = await addComment(text);
     if (response.ok) {
       setText("");
-      let newData = await response.json();
-      setComments((comments) => [newData, ...comments]);
+      setIsStale((value) => !value);
     }
   }
 

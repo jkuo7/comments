@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { EditCommentForm } from "./EditComment";
 import { ViewComment } from "./ViewComment.js";
 
-export function SingleComment({ comment, setComments }) {
+export function SingleComment({ comment, setIsStale }) {
   const [isEdit, setIsEdit] = useState(false);
 
   if (isEdit) {
@@ -12,7 +12,7 @@ export function SingleComment({ comment, setComments }) {
       <ViewComment
         comment={comment}
         setIsEdit={setIsEdit}
-        setComments={setComments}
+        setIsStale={setIsStale}
       />
     );
   }

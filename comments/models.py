@@ -8,6 +8,13 @@ class Comment(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     likes = models.IntegerField(default=0)
     image = models.URLField(blank=True)
+    parent = models.ForeignKey(
+        "Comment",
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        related_name="children",
+    )
 
     class Meta:
         ordering = ["-date"]

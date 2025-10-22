@@ -1,14 +1,14 @@
 import React from "react";
 import { deleteComment } from "./fetchApi";
 
-export const ViewComment = ({ comment, setIsEdit, setComments }) => {
+export const ViewComment = ({ comment, setIsEdit, setIsStale }) => {
   const date = new Date(comment.date);
 
   async function handleDelete(e) {
     e.preventDefault();
     const response = await deleteComment(comment.id);
     if (response.ok) {
-      setComments((comments) => comments.filter((c) => c.id !== comment.id));
+      setIsStale((value) => !value);
     }
   }
 

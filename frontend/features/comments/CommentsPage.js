@@ -4,37 +4,47 @@ import { CommentsList } from "./CommentsList";
 import { getComments } from "./fetchApi";
 
 export const CommentsPage = () => {
-  const [isLoading, setIsLoading] = useState(true);
   const [comments, setComments] = useState([]);
+  const [isStale, setIsStale] = useState(false);
 
   useEffect(() => {
+    let active = true;
+
     async function fetchData() {
       const response = await getComments();
-      if (!ignore && response.ok) {
+      if (active && response.ok) {
         const newData = await response.json();
         setComments(newData);
-        setIsLoading(false);
       }
     }
 
-    let ignore = false;
     fetchData();
     return () => {
-      ignore = true;
+      active = false;
     };
-  }, []);
+  }, [isStale]);
 
   let content;
-  if (isLoading) {
-    content = <div>Loading...</div>;
+  if (!comments.length) {
+    content = (
+      <div>
+        <br />
+        No comments yet!
+      </div>
+    );
   } else {
-    content = <CommentsList comments={comments} setComments={setComments} />;
+    content = (
+      <CommentsList
+        comments={comments.filter((comment) => comment.parent === null)}
+        setIsStale={setIsStale}
+      />
+    );
   }
 
   return (
     <div>
       <h1>Comments</h1>
-      <AddCommentForm setComments={setComments} />
+      <AddCommentForm setIsStale={setIsStale} />
       {content}
     </div>
   );
