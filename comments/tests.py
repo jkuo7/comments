@@ -13,4 +13,7 @@ class CommentTestCase(TestCase):
         self.assertEqual(c2.children.get(), c3)
 
         s1 = CommentSerializer(c1)
-        self.assertEqual(s1.data["children"][0]["children"][0]["id"], c3.id)
+        s2 = CommentSerializer(c2)
+        s3 = CommentSerializer(c3)
+        self.assertEqual(s1.data["children"][0], s2.data)
+        self.assertEqual(s1.data["children"][0]["children"][0], s3.data)
