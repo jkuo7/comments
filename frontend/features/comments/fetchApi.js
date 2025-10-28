@@ -5,13 +5,13 @@ export async function getComments() {
   return response;
 }
 
-export async function addComment(text) {
+export async function addComment(data) {
   const response = await fetch(COMMENTS_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ text: text }),
+    body: JSON.stringify(data),
   });
   return response;
 }

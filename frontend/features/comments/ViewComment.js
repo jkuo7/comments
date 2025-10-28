@@ -1,20 +1,30 @@
 import React from "react";
 import { deleteComment } from "./fetchApi";
 
-export const ViewComment = ({ comment, setIsEdit, setIsStale }) => {
+export const ViewComment = ({
+  comment,
+  setIsEdit,
+  refreshData,
+  setIsReply,
+}) => {
   const date = new Date(comment.date);
 
   async function handleDelete(e) {
     e.preventDefault();
     const response = await deleteComment(comment.id);
     if (response.ok) {
-      setIsStale((value) => !value);
+      refreshData();
     }
   }
 
   function handleEdit(e) {
     e.preventDefault();
     setIsEdit(true);
+  }
+
+  function handleReply(e) {
+    e.preventDefault();
+    setIsReply(true);
   }
 
   let image;
@@ -36,6 +46,9 @@ export const ViewComment = ({ comment, setIsEdit, setIsStale }) => {
         &#x2665;{comment.likes}{" "}
         <a href="#" onClick={handleEdit}>
           Edit
+        </a>{" "}
+        <a href="#" onClick={handleReply}>
+          Reply
         </a>{" "}
         <a href="#" onClick={handleDelete}>
           Delete

@@ -1,11 +1,6 @@
 from rest_framework import serializers
 from comments.models import Comment
-
-
-class RecursiveSerializer(serializers.Serializer):
-    def to_representation(self, value):
-        serializer = self.parent.parent.__class__(value, context=self.context)
-        return serializer.data
+from django_rest_framework_recursive.fields import RecursiveField
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -23,4 +18,4 @@ class CommentSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ["author", "likes", "image", "parent"]
 
-    children = RecursiveSerializer(many=True, read_only=True)
+    children = RecursiveField(many=True, read_only=True)

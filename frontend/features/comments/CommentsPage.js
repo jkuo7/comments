@@ -6,6 +6,9 @@ import { getComments } from "./fetchApi";
 export const CommentsPage = () => {
   const [comments, setComments] = useState([]);
   const [isStale, setIsStale] = useState(false);
+  const refreshData = () => {
+    setIsStale((value) => !value);
+  };
 
   useEffect(() => {
     let active = true;
@@ -33,18 +36,13 @@ export const CommentsPage = () => {
       </div>
     );
   } else {
-    content = (
-      <CommentsList
-        comments={comments.filter((comment) => comment.parent === null)}
-        setIsStale={setIsStale}
-      />
-    );
+    content = <CommentsList comments={comments} refreshData={refreshData} />;
   }
 
   return (
     <div>
       <h1>Comments</h1>
-      <AddCommentForm setIsStale={setIsStale} />
+      <AddCommentForm refreshData={refreshData} />
       {content}
     </div>
   );
