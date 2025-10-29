@@ -9,7 +9,7 @@ class Comment(models.Model):
     likes = models.IntegerField(default=0)
     image = models.URLField(blank=True)
     parent = models.ForeignKey(
-        "Comment",
+        "self",
         null=True,
         blank=True,
         on_delete=models.CASCADE,

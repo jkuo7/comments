@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from comments.models import Comment
 from comments.serializers import CommentSerializer
-from rest_framework import permissions, viewsets
+from rest_framework import permissions, viewsets, filters
 
 
 class CommentViewSet(viewsets.ModelViewSet):
@@ -10,11 +10,8 @@ class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
     permission_classes = [permissions.AllowAny]
-
-    def list(self, request, *args, **kwargs):
-        queryset = self.get_queryset().filter(parent=None)
-        serializer = CommentSerializer(queryset, many=True)
-        return Response(serializer.data)
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["text"]
 
     def perform_create(self, serializer):
 

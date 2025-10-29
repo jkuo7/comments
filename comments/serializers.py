@@ -17,5 +17,6 @@ class CommentSerializer(serializers.ModelSerializer):
             "children",
         ]
         read_only_fields = ["author", "likes", "image", "parent"]
+        depth = 1
 
     children = RecursiveField(many=True, read_only=True)

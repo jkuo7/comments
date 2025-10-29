@@ -1,7 +1,9 @@
 const COMMENTS_URL = "comments/";
 
-export async function getComments() {
-  const response = await fetch(COMMENTS_URL);
+export async function getComments(searchParams) {
+  const response = await fetch(
+    `${COMMENTS_URL}?${new URLSearchParams(searchParams)}`
+  );
   return response;
 }
 
